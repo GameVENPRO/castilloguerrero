@@ -1,2 +1,2 @@
-token = ["API_KEY"]
+token = "API_KEY"
 
