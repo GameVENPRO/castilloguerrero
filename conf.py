@@ -1,2 +1,2 @@
-token = ["TOKEN"]  # Test
+token = "BOT_TOKEN"  # Test
 

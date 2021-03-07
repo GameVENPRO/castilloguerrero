@@ -1,4 +1,4 @@
-pip
-python
+pyTelegramBotAPI==3.7.6
+pip==21.0.1
+requests==2.21.0
 flask
-pyTelegramBotAPI

@@ -8,39 +8,39 @@ import flask
 from keyboard import (admin_Kb, principal_Kb , registro_Kb,
     castle_Kb, guild_Kb, atacar_dra_Kb, atacar_lobo_Kb, atacar_luna_Kb, atacar_papa_Kb, atacar_aguilas_Kb, atacar_ciervos_Kb, atacar_tiburon_Kb)
 
-# ###############################################################
-# API_TOKEN = config.token
-# WEBHOOK_HOST = '85.143.174.217'
-# WEBHOOK_PORT = 8443  # 443, 80, 88 or 8443 (port need to be 'open')
-# WEBHOOK_LISTEN = '0.0.0.0'  # In some VPS you may need to put here the IP addr
-# WEBHOOK_SSL_CERT = './webhook_cert.pem'  # Path to the ssl certificate
-# WEBHOOK_SSL_PRIV = './webhook_pkey.pem'  # Path to the ssl private key
+###############################################################
+API_TOKEN = config.token
+WEBHOOK_HOST = '85.143.174.217'
+WEBHOOK_PORT = 8443  # 443, 80, 88 or 8443 (port need to be 'open')
+WEBHOOK_LISTEN = '0.0.0.0'  # In some VPS you may need to put here the IP addr
+WEBHOOK_SSL_CERT = './webhook_cert.pem'  # Path to the ssl certificate
+WEBHOOK_SSL_PRIV = './webhook_pkey.pem'  # Path to the ssl private key
 
-# WEBHOOK_URL_BASE = "https://%s:%s" % (WEBHOOK_HOST, WEBHOOK_PORT)
-# WEBHOOK_URL_PATH = "/%s/" % API_TOKEN
-# # logger = telebot.logger
-# # telebot.logger.setLevel(logger.info)
-# bot = telebot.TeleBot(API_TOKEN)
-# app = flask.Flask(__name__)
-
-
-# # Empty webserver index, return nothing, just http 200
-# @app.route('/', methods=['GET', 'HEAD'])
-# def index():
-#     return ''
+WEBHOOK_URL_BASE = "https://%s:%s" % (WEBHOOK_HOST, WEBHOOK_PORT)
+WEBHOOK_URL_PATH = "/%s/" % API_TOKEN
+# logger = telebot.logger
+# telebot.logger.setLevel(logger.info)
+bot = telebot.TeleBot(API_TOKEN)
+app = flask.Flask(__name__)
 
 
-# # Process webhook calls
-# @app.route(WEBHOOK_URL_PATH, methods=['POST'])
-# def webhook():
-#     if flask.request.headers.get('content-type') == 'application/json':
-#         json_string = flask.request.get_data().decode('utf-8')
-#         update = telebot.types.Update.de_json(json_string)
-#         bot.process_new_updates([update])
-#         return ''
-#     else:
-#         flask.abort(403)
-# ###############################################################
+# Empty webserver index, return nothing, just http 200
+@app.route('/', methods=['GET', 'HEAD'])
+def index():
+    return ''
+
+
+# Process webhook calls
+@app.route(WEBHOOK_URL_PATH, methods=['POST'])
+def webhook():
+    if flask.request.headers.get('content-type') == 'application/json':
+        json_string = flask.request.get_data().decode('utf-8')
+        update = telebot.types.Update.de_json(json_string)
+        bot.process_new_updates([update])
+        return ''
+    else:
+        flask.abort(403)
+###############################################################
 
 
 adminskeyboarhide = telebot.types.ReplyKeyboardRemove()
@@ -54,7 +54,7 @@ Caminante! Prepárate para el ataque (⚔ataque) a ' Valiente Guerrero, Elegir u
 logging.basicConfig(format=u'%(filename)s[LINE:%(lineno)-3s]# %(levelname)-5s [%(asctime)s] %(message)s'
                     , level = logging.INFO)
 
-bot = telebot.TeleBot(conf.token)
+# bot = telebot.TeleBot(conf.token)
 
 
 def niceprint(string):
@@ -780,19 +780,19 @@ def getcurrentuser(message):
 if __name__ == '__main__':
     bot.polling(none_stop=True)
 
-# ###############################################################
-# # Remove webhook, it fails sometimes the set if there is a previous webhook
-# bot.remove_webhook()
-# time.sleep(1)
+###############################################################
+# Remove webhook, it fails sometimes the set if there is a previous webhook
+bot.remove_webhook()
+time.sleep(1)
 
 
-# # Set webhook
-# bot.set_webhook(url=WEBHOOK_URL_BASE+WEBHOOK_URL_PATH,
-#                 certificate=open(WEBHOOK_SSL_CERT, 'r'))
+# Set webhook
+bot.set_webhook(url=WEBHOOK_URL_BASE+WEBHOOK_URL_PATH,
+                certificate=open(WEBHOOK_SSL_CERT, 'r'))
 
 
-# # Start flask server
-# app.run(host=WEBHOOK_LISTEN,
-#         port=WEBHOOK_PORT,
-#         ssl_context=(WEBHOOK_SSL_CERT, WEBHOOK_SSL_PRIV),
-#         debug=True)
+# Start flask server
+app.run(host=WEBHOOK_LISTEN,
+        port=WEBHOOK_PORT,
+        ssl_context=(WEBHOOK_SSL_CERT, WEBHOOK_SSL_PRIV),
+        debug=True)
