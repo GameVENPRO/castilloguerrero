@@ -1,2 +1,2 @@
-token = ["TOKEN"]  # Test
+token = ["API_KEY"]
 
