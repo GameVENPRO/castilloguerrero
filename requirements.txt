@@ -1,7 +1,4 @@
 pip
 python
-requests
 flask
 pyTelegramBotAPI
-
-
