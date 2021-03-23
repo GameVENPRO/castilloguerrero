@@ -5,56 +5,18 @@ import time
 import datetime
 import conf
 import flask
+from telebot import types
+from conf import admins, token ,salfetka
 from keyboard import (admin_Kb, principal_Kb , registro_Kb,
-    castle_Kb, guild_Kb, atacar_dra_Kb, atacar_lobo_Kb, atacar_luna_Kb, atacar_papa_Kb, atacar_aguilas_Kb, atacar_ciervos_Kb, atacar_tiburon_Kb)
-
-###############################################################
-API_TOKEN = config.token
-WEBHOOK_HOST = '85.143.174.217'
-WEBHOOK_PORT = 8443  # 443, 80, 88 or 8443 (port need to be 'open')
-WEBHOOK_LISTEN = '0.0.0.0'  # In some VPS you may need to put here the IP addr
-WEBHOOK_SSL_CERT = './webhook_cert.pem'  # Path to the ssl certificate
-WEBHOOK_SSL_PRIV = './webhook_pkey.pem'  # Path to the ssl private key
-
-WEBHOOK_URL_BASE = "https://%s:%s" % (WEBHOOK_HOST, WEBHOOK_PORT)
-WEBHOOK_URL_PATH = "/%s/" % API_TOKEN
-# logger = telebot.logger
-# telebot.logger.setLevel(logger.info)
-bot = telebot.TeleBot(API_TOKEN)
-app = flask.Flask(__name__)
-
-
-# Empty webserver index, return nothing, just http 200
-@app.route('/', methods=['GET', 'HEAD'])
-def index():
-    return ''
-
-
-# Process webhook calls
-@app.route(WEBHOOK_URL_PATH, methods=['POST'])
-def webhook():
-    if flask.request.headers.get('content-type') == 'application/json':
-        json_string = flask.request.get_data().decode('utf-8')
-        update = telebot.types.Update.de_json(json_string)
-        bot.process_new_updates([update])
-        return ''
-    else:
-        flask.abort(403)
-###############################################################
+    castle_Kb, guild_Kb, atacar_dra_Kb, atacar_lobo_Kb, atacar_luna_Kb, atacar_papa_Kb, atacar_aguilas_Kb, atacar_ciervos_Kb, atacar_tiburon_Kb,misionee_kb)
 
 
 adminskeyboarhide = telebot.types.ReplyKeyboardRemove()
 
-admins = ['JuanShotLC','Devil']
+logging.basicConfig(format=u'%(levelname)s:[%(asctime)s %(filename)s->Linea:%(lineno)s]%(message)s',datefmt='%d/%m/%Y %H:%M:%S' , level=logging.INFO, 
+                    handlers=[logging.FileHandler(filename="log.log", encoding='utf8'), logging.StreamHandler()])
 
-salfetka = '''
-‼ modo de silencio! ‼️
-Caminante! Prepárate para el ataque (⚔ataque) a ' Valiente Guerrero, Elegir un enemigo!' ‼️
- '''
-logging.basicConfig(format=u'%(filename)s[LINE:%(lineno)-3s]# %(levelname)-5s [%(asctime)s] %(message)s'
-                    , level = logging.INFO)
-
-# bot = telebot.TeleBot(conf.token)
+bot = telebot.TeleBot(conf.token)
 
 
 def niceprint(string):
@@ -101,7 +63,7 @@ def send_welcome(message):
         bot.send_message(message.chat.id, 'Elige el castillo al que jurarás lealtad 🗡', reply_markup=registro_Kb())
         
 @bot.message_handler(func=lambda msg: msg.text == '🐉Escama de dragon')
-def registro_user(message):
+def resg_1(message):
         logging.info('USER: ' + str(message.from_user.username) + ' CMD: Se unio para el Castillo 🐉Escama de dragon')
 
         # print(message)
@@ -119,7 +81,7 @@ def registro_user(message):
         bot.send_message(message.chat.id, '🎉Te unes a los valientes guerreros del Castillo de 🐉Escama de dragon.\n Date prisa y únete al chat de nuestros jugadores: @', reply_markup=principal_Kb())
 
 @bot.message_handler(func=lambda msg: msg.text == '🦈Dientes De Tiburón')
-def registro2_user(message):
+def resg_2(message):
         logging.info('USER: ' + str(message.from_user.username) + ' CMD: Se unio para el Castillo 🦈Dientes De Tiburón')
 
         # print(message)
@@ -137,7 +99,7 @@ def registro2_user(message):
         bot.send_message(message.chat.id, '🎉Te unes a los valientes guerreros del Castillo de 🦈Dientes De Tiburón.\n Date prisa y únete al chat de nuestros jugadores: @', reply_markup=principal_Kb())
  
 @bot.message_handler(func=lambda msg: msg.text == '🦌Cuerno de ciervo')
-def registro2_user(message):
+def resg_3(message):
         logging.info('USER: ' + str(message.from_user.username) + ' CMD: Se unio para el Castillo 🦌Cuerno de ciervo')
 
         # print(message)
@@ -155,7 +117,7 @@ def registro2_user(message):
         bot.send_message(message.chat.id, '🎉Te unes a los valientes guerreros del Castillo de 🦌Cuerno de ciervo.\n Date prisa y únete al chat de nuestros jugadores: @', reply_markup=principal_Kb())
  
 @bot.message_handler(func=lambda msg: msg.text == '🦅Nido alto')
-def registro2_user(message):
+def resg_4(message):
         logging.info('USER: ' + str(message.from_user.username) + ' CMD: Se unio para el Castillo 🦅Nido alto')
 
         # print(message)
@@ -173,7 +135,7 @@ def registro2_user(message):
         bot.send_message(message.chat.id, '🎉Te unes a los valientes guerreros del Castillo de 🦅Nido alto.\n Date prisa y únete al chat de nuestros jugadores: @', reply_markup=principal_Kb())
      
 @bot.message_handler(func=lambda msg: msg.text == '🐺Manada de lobos')
-def registro2_user(message):
+def resg_5(message):
         logging.info('USER: ' + str(message.from_user.username) + ' CMD: Se unio para el Castillo 🐺Manada de lobos')
 
         # print(message)
@@ -191,7 +153,7 @@ def registro2_user(message):
         bot.send_message(message.chat.id, '🎉Te unes a los valientes guerreros del Castillo de 🐺Manada de lobos.\n Date prisa y únete al chat de nuestros jugadores: @', reply_markup=principal_Kb())
 
 @bot.message_handler(func=lambda msg: msg.text == '🥔Papa')
-def registro6_user(message):
+def resg_6(message):
         logging.info('USER: ' + str(message.from_user.username) + ' CMD: Se unio para el Castillo 🥔Papa')
 
         userid = message.from_user.id
@@ -208,7 +170,7 @@ def registro6_user(message):
         bot.send_message(message.chat.id, '🎉Te unes a los valientes guerreros del Castillo de 🥔Papa.\n Date prisa y únete al chat de nuestros jugadores: @', reply_markup=principal_Kb())
  
 @bot.message_handler(func=lambda msg: msg.text == '🌑Luz lunar')
-def registro7_user(message):
+def resg_7(message):
         logging.info('USER: ' + str(message.from_user.username) + ' CMD: Se unio para el Castillo 🌑Luz lunar')
 
         userid = message.from_user.id
@@ -284,7 +246,7 @@ def me(message):
     conn.close()
 
 @bot.message_handler(func=lambda msg: msg.text == '⚔️Atacar')
-def me(message):
+def actacar(message):
     userid = message.from_user.id
     username = message.from_user.username
              
@@ -538,17 +500,80 @@ def heroe(message):
     conn.close()
 
 @bot.message_handler(func=lambda msg: msg.text == '🗺Misiones')
-def me(message):
+def misiones(message):
     logging.info('USER: ' + str(message.from_user.username) + ' CMD: 🦈')
     bot.send_message(message.chat.id, '🌲Bosque 3min \n Pueden pasar muchas cosas en el bosque.\n'
         '🗡Foray 🔋🔋 \n'
         'La incursión es una actividad peligrosa. Alguien puede notarlo y puede golpearlo. Pero si pasas desapercibido, conseguirás mucho botín. \n'
         '📯Arena \n'
         'Arena no es un lugar para débiles. Aquí luchas contra otros jugadores y si sales victorioso, adquieres una experiencia preciosa.'
-        , reply_markup=principal_Kb())
+        , reply_markup=misionee_kb())
+
+@bot.callback_query_handler(func=lambda  query: query.data in ['bosque','pantano','valle','foray','arena'])
+def misiones_call(call):
+    if call.message:
+        if call.data == "bosque":
+            starttime = time.time()
+            i = 1
+            logging.info('USER:'+ str(call.from_user.username) + ' CBQ: ' + call.data)
+            bot.send_message(call.message.chat.id, text='En una necesidad extrema de una aventura, fuiste a un bosque.\n'
+                                                            'Regresarás en 3 minutos.', reply_markup=principal_Kb())
+            
+            while (i >= 1):
+                time.sleep(180 - ((time.time() - starttime) % 180))                    
+                bot.send_message(call.message.chat.id, text='De repente estabas rodeado por una enorme banda de orcos, liderados por un chamán Orco.\n' 
+                                                        'Exigieron que les dieras todo lo que tienes. Mataste a cada uno de ellos y recogiste un montón de botín.\n\n'
+                                                        'Usted recibió: 15 exp y 2 oro\n'
+                                                        'Ganado: Palo (1)\n'
+                                                        'Ganado: Polvo (1)\n')
+                break
+        
+        if call.data == "pantano":
+            starttime = time.time()
+            i = 1
+            logging.info('USER:'+ str(call.from_user.username) + ' CBQ: ' + call.data)
+            bot.send_message(call.message.chat.id, text='Una aventura está llamando. Pero fuiste a un pantano.\n'
+                        'Regresarás en 6 minutos.', reply_markup=principal_Kb())  
+            while (i >= 1):
+                time.sleep(260 - ((time.time() - starttime) % 260))                    
+                bot.send_message(call.message.chat.id, text='un minutos ganaste.')
+                break          
+        
+        if call.data == "valle":
+            starttime = time.time()
+            i = 1
+            logging.info('USER:'+ str(call.from_user.username) + ' CBQ: ' + call.data)
+            bot.send_message(call.message.chat.id, text='Las montañas pueden ser un lugar peligroso.\nDecidiste investigar, qué está pasando.\n'
+                        'Regresarás en 4 minutos.', reply_markup=principal_Kb())
+            
+            while (i >= 1):
+                time.sleep(240 - ((time.time() - starttime) % 240))                    
+                bot.send_message(call.message.chat.id, text='un minutos ganaste.')
+                break
+        
+        if call.data == "foray":
+            starttime = time.time()
+            i = 1
+            logging.info('USER:'+ str(call.from_user.username) + ' CBQ: ' + call.data)
+            bot.send_message(call.message.chat.id, text='Sintiendo una lujuria insatisfactoria por la violencia te diriges al pueblo más cercano.\n'                 
+                        'Llegará a la más cercana en 4 minutos.', reply_markup=principal_Kb())
+            while (i >= 1):
+                time.sleep(240 - ((time.time() - starttime) % 240))                    
+                bot.send_message(call.message.chat.id, text='un minutos ganaste.')
+                break
+        
+        if call.data == "arena":
+            logging.info('USER:'+ str(call.from_user.username) + ' CBQ: ' + call.data)
+            bot.send_message(call.message.chat.id, text='📯 Bienvenido a Arena!\n'               
+                                                        'El aire sucio está empapado con el espeso olor de la sangre.\n' 
+                                                        'Nadie termina aquí por accidente: no puedes irte una vez que comienzas tu batalla.\n' 
+                                                        'Espero que tu espada esté afilada y tu escudo firme.\n\n'
+                                                        'Su rango: 893\nTus peleas: 0/5\n\n'
+                                                        'Clasificación de combate: /top 5\nCrecimiento más rápido: /top 6\n\n'
+                                                        'Precio de la entrada: 5 💰', reply_markup=principal_Kb())
 
 @bot.message_handler(func=lambda msg: msg.text == '👥Clanes')
-def me(message):
+def clanes(message):
     logging.info('USER: ' + str(message.from_user.username) + ' CMD: 👥Clanes')
     conn = sqlite3.connect('castillowars.db')
     c = conn.cursor()
@@ -570,7 +595,7 @@ def me(message):
     conn.close()
 
 @bot.message_handler(commands=['crearclan'], content_types=['text'])
-def delallusers(message):
+def crearclan(message):
     logging.info('USER: ' + str(message.from_user.username) + ' CMD: ' + message.text )    
     username = message.from_user.username
     userid = message.from_user.id
@@ -779,20 +804,3 @@ def getcurrentuser(message):
 
 if __name__ == '__main__':
     bot.polling(none_stop=True)
-
-###############################################################
-# Remove webhook, it fails sometimes the set if there is a previous webhook
-bot.remove_webhook()
-time.sleep(1)
-
-
-# Set webhook
-bot.set_webhook(url=WEBHOOK_URL_BASE+WEBHOOK_URL_PATH,
-                certificate=open(WEBHOOK_SSL_CERT, 'r'))
-
-
-# Start flask server
-app.run(host=WEBHOOK_LISTEN,
-        port=WEBHOOK_PORT,
-        ssl_context=(WEBHOOK_SSL_CERT, WEBHOOK_SSL_PRIV),
-        debug=True)

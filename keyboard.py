@@ -1,6 +1,6 @@
 import types
 import random
-from telebot.types import ReplyKeyboardMarkup, KeyboardButton
+from telebot.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup , InlineKeyboardButton
 
 def random_sele():
 	tecla_reg = ['🐉Escama de dragon','🌑Luz lunar','🥔Papa','🦅Nido alto','🐺Manada de lobos','🦌Cuerno de ciervo','🦈Dientes de Tiburón']
@@ -66,3 +66,13 @@ def atacar_tiburon_Kb():
     admin_kb = ReplyKeyboardMarkup(resize_keyboard=True)
     admin_kb.add(*[KeyboardButton(name) for name in ['🐉','🌑','🥔','🦅','🐺','🦌']])
     return admin_kb  
+
+def misionee_kb():
+    kb = InlineKeyboardMarkup(row_width=3)
+    button1 = InlineKeyboardButton(text="🌲Bosque",   callback_data="bosque")
+    button2 = InlineKeyboardButton(text="🍄Pantano", callback_data="pantano")
+    button3 = InlineKeyboardButton(text="🏔Valle",   callback_data="valle")
+    button4 = InlineKeyboardButton(text="🗡Foray",   callback_data="foray")
+    button5 = InlineKeyboardButton(text="📯Arena",   callback_data="arena")
+    kb.add(button1, button2,button3,button4,button5)
+    return kb
